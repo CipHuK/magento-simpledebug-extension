@@ -1,1 +1,9 @@
-/home/ciphuk/webserver/htdocs/magento/customs/app/etc/modules/CipHuK_Debug.xml
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <CipHuK_Debug>
+            <active>true</active>
+            <codePool>local</codePool>
+        </CipHuK_Debug>
+    </modules>
+</config>

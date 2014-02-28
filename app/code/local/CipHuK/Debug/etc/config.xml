@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <CipHuK_Debug>
+            <version>0.1.0</version>
+        </CipHuK_Debug>
+    </modules>
+    <global>
+        <models>
+            <ciphuk_debug>
+                <class>CipHuK_Debug_Model</class>
+            </ciphuk_debug>
+        </models>
+        <helpers>
+            <ciphuk_debug>
+                <class>CipHuK_Debug_Helper</class>
+            </ciphuk_debug>
+        </helpers>
+        <events>
+            <controller_front_init_before>
+                <observers>
+                    <ciphuk_debug_init_observer>
+                        <type>singleton</type>
+                        <class>CipHuK_Debug_Model_Observer</class>
+                        <method>initDebug</method>
+                    </ciphuk_debug_init_observer>
+                </observers>
+            </controller_front_init_before>
+        </events>
+    </global>
+</config>
