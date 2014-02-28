@@ -9,12 +9,12 @@ class CipHuK_Debug_Helper_Data extends Mage_Core_Helper_Abstract
 
     public function isEnabled()
     {
-        return 1;//Mage::getStoreConfig( self::XML_PATH_ENABLED );
+        return Mage::getStoreConfig( self::XML_PATH_ENABLED );
     }
 
     public function isLogEnabled()
     {
-        return 0;//Mage::getStoreConfig( self::XML_PATH_LOG );
+        return Mage::getStoreConfig( self::XML_PATH_LOG );
     }
 
     protected function log($string)

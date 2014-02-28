@@ -28,4 +28,13 @@
             </controller_front_init_before>
         </events>
     </global>
+
+    <default>
+        <debug>
+            <debug>
+                <enabled>1</enabled>
+                <logenabled>1</logenabled>
+            </debug>
+        </debug>
+    </default>
 </config>

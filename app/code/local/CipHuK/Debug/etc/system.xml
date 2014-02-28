@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+        <ciphuk>
+            <label>CipHuK - Libraries</label>
+            <sort_order>54</sort_order>
+        </ciphuk>
+    </tabs>
+
+    <sections>
+        <debug translate="label" module="ciphuk_debug">
+            <label>Debug</label>
+            <tab>ciphuk</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>101</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <debug translate="label">
+                    <label>General</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enabled translate="label" module="ciphuk_debug">
+                            <label>Enable Module</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </enabled>
+                        <logenabled translate="label" module="ciphuk_debug">
+                            <label>Enable Logging</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </logenabled>
+                    </fields>
+                </debug>
+            </groups>
+        </debug>
+    </sections>
+</config>
