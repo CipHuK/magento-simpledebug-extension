@@ -33,7 +33,7 @@
         <debug>
             <debug>
                 <enabled>1</enabled>
-                <logenabled>1</logenabled>
+                <logenabled>0</logenabled>
             </debug>
         </debug>
     </default>
