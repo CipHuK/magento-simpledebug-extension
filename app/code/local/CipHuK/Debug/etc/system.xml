@@ -48,4 +48,21 @@
             </groups>
         </debug>
     </sections>
+
+    <sections>
+        <dev translate="label" module="core">
+            <groups>
+                <debug translate="label">
+                    <fields>
+                        <template_hints translate="label">
+                            <show_in_default>1</show_in_default>
+                        </template_hints>
+                        <template_hints_blocks translate="label">
+                            <show_in_default>1</show_in_default>
+                        </template_hints_blocks>
+                    </fields>
+                </debug>
+            </groups>
+        </dev>
+    </sections>
 </config>
