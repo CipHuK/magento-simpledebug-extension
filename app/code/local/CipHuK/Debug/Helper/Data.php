@@ -46,8 +46,11 @@ class CipHuK_Debug_Helper_Data extends Mage_Core_Helper_Abstract
         $this->_logger->log(var_export($string,1), Zend_Log::INFO);
     }
 
-    private static function wrapOutput(&$backtrace, $funcName, $content, $colorCode, $borderColor)
+    private static function wrapOutput($funcName, $content, $colorCode, $borderColor)
     {
+        $backtrace = debug_backtrace();
+        array_shift($backtrace);
+
         $log = '<pre style="white-space:pre-wrap; border-radius: 8px; border: 3px double ' . $borderColor . '; background-color: ' . $colorCode . '; padding: 3px; margin: 2px 0 0 0; color: #000; ">';
 
         if ( $backtrace[1]['function'] == 'call_user_func_array' ) {
@@ -116,7 +119,7 @@ class CipHuK_Debug_Helper_Data extends Mage_Core_Helper_Abstract
                 . '</div>';
         }
 
-        $log = self::wrapOutput(debug_backtrace(), 'Backtrace(' . (int)$level . ')', $log, '#dfd', '#090');
+        $log = self::wrapOutput('Backtrace(' . (int)$level . ')', $log, '#dfd', '#090');
 
         if (self::isLogEnabled()) $this->log(strip_tags($log) . "\n");
         if (self::isEnabled()) echo $log;
@@ -125,7 +128,6 @@ class CipHuK_Debug_Helper_Data extends Mage_Core_Helper_Abstract
     public function dump()
     {
         $args = func_get_args();
-        $backtrace = debug_backtrace();
 
         $log = '';
         foreach ($args as $argument) {
@@ -156,7 +158,7 @@ class CipHuK_Debug_Helper_Data extends Mage_Core_Helper_Abstract
             $log .= '</div>';
         }
 
-        $log = self::wrapOutput(debug_backtrace(), 'Dump()', $log, '#fdd', '#900');
+        $log = self::wrapOutput('Dump()', $log, '#fdd', '#900');
         if (self::isLogEnabled()) $this->log(strip_tags($log) . "\n");
         if (self::isEnabled()) echo $log;
     }
@@ -164,8 +166,6 @@ class CipHuK_Debug_Helper_Data extends Mage_Core_Helper_Abstract
     public function timer($timer = 'default')
     {
         static $timersList = array();
-
-        $backtrace = debug_backtrace();
 
         $log = '<div style="border: 1px solid #fc0; background-color: #fff; padding: 2px;">';
         $currMicrotime = microtime(1);
@@ -178,15 +178,14 @@ class CipHuK_Debug_Helper_Data extends Mage_Core_Helper_Abstract
         }
         $log .= '</div>';
 
-        $log = self::wrapOutput(debug_backtrace(), 'Timer(' . $timer . ')', $log, '#ffd', '#fc0');;
+        $log = self::wrapOutput('Timer(' . $timer . ')', $log, '#ffd', '#fc0');;
         if (self::isLogEnabled()) $this->log(strip_tags($log) . "\n");
         if (self::isEnabled()) echo $log;
     }
 
     public function stop()
     {
-        $backtrace = debug_backtrace();
-        $log = self::wrapOutput(debug_backtrace(), 'Stop()', '', '#eee', '#333');;
+        $log = self::wrapOutput('Stop()', '', '#eee', '#333');;
         if (self::isEnabled()) { echo $log; exit; }
     }
 }
