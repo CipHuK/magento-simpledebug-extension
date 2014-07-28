@@ -72,7 +72,7 @@ class CipHuK_Debug_Helper_Data extends Mage_Core_Helper_Abstract
     {
         $backtrace = debug_backtrace();
 
-        $log .= '<pre style="white-space:pre-wrap; border-radius: 8px; border: 3px double #090; background-color: #dfd; padding: 3px; margin: 2px 0 0 0; color: #000; ">';
+        $log = '<pre style="white-space:pre-wrap; border-radius: 8px; border: 3px double #090; background-color: #dfd; padding: 3px; margin: 2px 0 0 0; color: #000; ">';
 
         $log .= self::outHead($backtrace, 'Backtrace(' . (int)$level . ')');
 
@@ -125,7 +125,7 @@ class CipHuK_Debug_Helper_Data extends Mage_Core_Helper_Abstract
         $args = func_get_args();
         $backtrace = debug_backtrace();
 
-        $log .= '<pre style="white-space:pre-wrap; border-radius: 5px; border: 3px double #900; background-color: #fdd; padding: 2px; margin: 2px 0 0 0; color: #000;">';
+        $log = '<pre style="white-space:pre-wrap; border-radius: 5px; border: 3px double #900; background-color: #fdd; padding: 2px; margin: 2px 0 0 0; color: #000;">';
 
         $log .= self::outHead($backtrace,'Dump()');
 
@@ -168,7 +168,7 @@ class CipHuK_Debug_Helper_Data extends Mage_Core_Helper_Abstract
 
         $backtrace = debug_backtrace();
 
-        $log .= '<pre style="white-space:pre-wrap; border-radius: 5px; border: 3px double #fc0; background-color: #ffd; padding: 3px; margin: 2px 0 0 0;  color: #000;">';
+        $log = '<pre style="white-space:pre-wrap; border-radius: 5px; border: 3px double #fc0; background-color: #ffd; padding: 3px; margin: 2px 0 0 0;  color: #000;">';
 
         $log .= self::outHead($backtrace,'Timer()');
 
@@ -190,7 +190,7 @@ class CipHuK_Debug_Helper_Data extends Mage_Core_Helper_Abstract
     public function stop()
     {
         $backtrace = debug_backtrace();
-        $log .= '<pre style="white-space:pre-wrap; border-radius: 5px; border: 3px double #333; background-color: #eee; padding: 5px; margin: 2px 0;  color: #000;">';
+        $log = '<pre style="white-space:pre-wrap; border-radius: 5px; border: 3px double #333; background-color: #eee; padding: 5px; margin: 2px 0;  color: #000;">';
         $log .= self::outHead($backtrace, 'Stop()');
         $log .= '</pre>';
         if (self::isEnabled()) { echo $log; exit; }
