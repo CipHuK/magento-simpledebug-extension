@@ -55,8 +55,6 @@ class CipHuK_Debug_Helper_Data extends Mage_Core_Helper_Abstract
 
         if ( $backtrace[1]['function'] == 'call_user_func_array' ) {
             $headBacktrace = $backtrace[2];
-            array_shift($backtrace);
-            array_shift($backtrace);
         } else {
             $headBacktrace = $backtrace[0];
         }
