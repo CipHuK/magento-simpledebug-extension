@@ -77,7 +77,12 @@ class CipHuK_Debug_Helper_Data extends Mage_Core_Helper_Abstract
     public function backtrace($level = null)
     {
         $backtrace = debug_backtrace();
-        for ($i = 0; $i < 3; ++$i) { array_shift($backtrace); }
+
+        $shiftCount = ($backtrace[1]['function'] == 'call_user_func_array')
+                    ? 3
+                    : 1;
+
+        for ($i = 0; $i < $shiftCount; ++$i) { array_shift($backtrace); }
 
         $log = '';
         $i = 0;
@@ -89,7 +94,7 @@ class CipHuK_Debug_Helper_Data extends Mage_Core_Helper_Abstract
 
             if (isset($var['file']) ) {
                 $log .= '<span style="color: #00d">File:</span> '
-                    . '<span style="color: #000">' . $var['file'] . '</span> '
+                    . '<span style="color: #000">' . str_replace(getcwd(), '.', $var['file']) . '</span> '
                     . '<span style="color: #00d">Line:</span> '
                     . '<span style="color: #f00">' . $var['line'] . '</span>';
             } else {
