@@ -2,27 +2,26 @@
 
 class CipHuK_Debug_Helper_Data extends Mage_Core_Helper_Abstract
 {
-    const XML_PATH_ENABLED   = 'debug/debug/enabled';
-    const XML_PATH_LOG   = 'debug/debug/logenabled';
+    const XML_PATH_ENABLED = 'debug/debug/enabled';
+    const XML_PATH_LOG = 'debug/debug/logenabled';
 
     protected $_logger;
 
     public function isEnabled()
     {
-        return Mage::getStoreConfig( self::XML_PATH_ENABLED );
+        return Mage::getStoreConfig(self::XML_PATH_ENABLED);
     }
 
     public function isLogEnabled()
     {
-        return Mage::getStoreConfig( self::XML_PATH_LOG );
+        return Mage::getStoreConfig(self::XML_PATH_LOG);
     }
 
     protected function log($string)
     {
-        if (is_null($this->_logger))
-        {
+        if (is_null($this->_logger)) {
             $file = 'debug.log';
-            $logDir  = Mage::getBaseDir('var') . DS . 'log';
+            $logDir = Mage::getBaseDir('var') . DS . 'log';
             $logFile = $logDir . DS . $file;
 
             if (!is_dir($logDir)) {
@@ -43,7 +42,7 @@ class CipHuK_Debug_Helper_Data extends Mage_Core_Helper_Abstract
             $filter = new Zend_Log_Filter_Priority(Zend_Log::INFO);
             $this->_logger->addFilter($filter);
         }
-        $this->_logger->log(var_export($string,1), Zend_Log::INFO);
+        $this->_logger->log(var_export($string, 1), Zend_Log::INFO);
     }
 
     private static function wrapOutput($funcName, $content, $colorCode, $borderColor)
@@ -53,7 +52,7 @@ class CipHuK_Debug_Helper_Data extends Mage_Core_Helper_Abstract
 
         $log = '<pre style="white-space:pre-wrap; border-radius: 8px; border: 3px double ' . $borderColor . '; background-color: ' . $colorCode . '; padding: 3px; margin: 2px 0 0 0; color: #000; ">';
 
-        if ( $backtrace[1]['function'] == 'call_user_func_array' ) {
+        if ($backtrace[1]['function'] == 'call_user_func_array') {
             $headBacktrace = $backtrace[2];
         } else {
             $headBacktrace = $backtrace[0];
@@ -62,13 +61,13 @@ class CipHuK_Debug_Helper_Data extends Mage_Core_Helper_Abstract
         $relativePath = str_replace(getcwd(), '.', $headBacktrace['file']);
 
         $log .= '<div style="padding: 0 0 4px">'
-        . '<span style="color: #00d">Function:</span> '
-        . '<span style="color: #000">' . $funcName . '</span> '
-        . '<span style="color: #00d">File:</span> '
-        . '<span style="color: #000">' . $relativePath . '</span> '
-        . '<span style="color: #00d">Line:</span> '
-        . '<span style="color: #f00">' . $headBacktrace['line'] . '</span>'
-        . '</div>';
+            . '<span style="color: #00d">Function:</span> '
+            . '<span style="color: #000">' . $funcName . '</span> '
+            . '<span style="color: #00d">File:</span> '
+            . '<span style="color: #000">' . $relativePath . '</span> '
+            . '<span style="color: #00d">Line:</span> '
+            . '<span style="color: #f00">' . $headBacktrace['line'] . '</span>'
+            . '</div>';
 
         $log .= $content . '</pre>';
         return $log;
@@ -82,17 +81,21 @@ class CipHuK_Debug_Helper_Data extends Mage_Core_Helper_Abstract
                     ? 3
                     : 1;
 
-        for ($i = 0; $i < $shiftCount; ++$i) { array_shift($backtrace); }
+        for ($i = 0; $i < $shiftCount; ++$i) {
+            array_shift($backtrace);
+        }
 
         $log = '';
         $i = 0;
         foreach ($backtrace as $var) {
-            if (!empty($level) && ((int)$level <= $i)) { break; }
+            if (!empty($level) && ((int)$level <= $i)) {
+                break;
+            }
             ++$i;
             $log .= '<div style="border: 1px solid #090; margin: 3px 0 0 0; background-color: #efe;">'
                 . '<span style="border-bottom: 1px dashed #090; background-color: #fff;">';
 
-            if (isset($var['file']) ) {
+            if (isset($var['file'])) {
                 $log .= '<span style="color: #00d">File:</span> '
                     . '<span style="color: #000">' . str_replace(getcwd(), '.', $var['file']) . '</span> '
                     . '<span style="color: #00d">Line:</span> '
@@ -103,13 +106,13 @@ class CipHuK_Debug_Helper_Data extends Mage_Core_Helper_Abstract
             $log .= "</span>\n";
 
             if (!empty($var['class'])) {
-                $log .=  '<span>' . $var['class'] . '</span>'
-                    . '<span>' . $var['type']  . '</span>';
+                $log .= '<span>' . $var['class'] . '</span>'
+                    . '<span>' . $var['type'] . '</span>';
             }
             $arrArgs = array();
             foreach ($var['args'] as $argument) {
                 if (is_object($argument))
-                    $arrArgs[] =  get_class($argument);
+                    $arrArgs[] = get_class($argument);
                 elseif (is_array($argument))
                     $arrArgs[] = gettype($argument) . '<em>{' . count($argument) . '}</em>';
                 else
@@ -144,19 +147,19 @@ class CipHuK_Debug_Helper_Data extends Mage_Core_Helper_Abstract
                         } elseif (is_object($var)) {
                             $log .= "{$key} => " . get_class($var) . ", \n";
                         } else {
-                            $log .= "{$key} => " . var_export($var,1) . ", \n";
+                            $log .= "{$key} => " . var_export($var, 1) . ", \n";
                         }
                     }
                     $log .= ')';
                 } else {
-                    $log .= 'Array<em>{' . count($argument) .  '}</em>';
+                    $log .= 'Array<em>{' . count($argument) . '}</em>';
                 }
-            }elseif (is_object($argument)) {
+            } elseif (is_object($argument)) {
                 $log .= get_class($argument);
             } elseif (is_string($argument)) {
                 $log .= "'{$argument}'";
             } else {
-                $log .= var_export($argument,1);
+                $log .= var_export($argument, 1);
             }
             $log .= '</div>';
         }
@@ -177,7 +180,7 @@ class CipHuK_Debug_Helper_Data extends Mage_Core_Helper_Abstract
             $log .= 'Timer: "' . $timer . '" start';
         } else {
             $timersList[$timer] = $currMicrotime - $timersList[$timer];
-            $log .= 'Timer: "' . $timer . '" stop ' . sprintf("%.6f",$timersList[$timer]);
+            $log .= 'Timer: "' . $timer . '" stop ' . sprintf("%.6f", $timersList[$timer]);
         }
         $log .= '</div>';
 
@@ -189,7 +192,10 @@ class CipHuK_Debug_Helper_Data extends Mage_Core_Helper_Abstract
     public function stop()
     {
         $log = self::wrapOutput('Stop()', '', '#eee', '#333');;
-        if (self::isEnabled()) { echo $log; exit; }
+        if (self::isEnabled()) {
+            echo $log;
+            exit;
+        }
     }
 }
 
